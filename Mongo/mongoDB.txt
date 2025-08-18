@@ -1,0 +1,55 @@
+MONGO DB
+
+
+
+show databases
+
+use cohort_65
+
+show dbs
+show collections
+db 
+db.pets.insertOne({name: 'Vaska', type: 'Cat', age: '2})
+db.pets.insertOne({name: 'Boris', type: 'Cat', age: '3', breed: 'Siam'})
+db.pets.find({name:'Vaska'})
+
+db.pets.deleteOne({name:'Vaska'})
+
+db.pets.insertMany([
+{name: 'Vaska', type: 'Cat', age: 5},
+{name: 'Tom', type: 'Cat', age: 85},
+{name: 'Jerry', type: 'Mouse', age: 85},
+{name: 'Ace', type: 'Dog', age: 5},
+{name: 'Prince', type: 'Dog', age: 3, breed: 'Boxer'}
+])
+db.pets.deleteOne({type:'Cat'})
+db.pets.deleteMany({type:'Cat'})
+
+
+db.pets.insertMany([
+{name: 'Vaska', type: 'Cat', age: 5},
+{name: 'Tom', type: 'Cat', age: 85},
+{name: 'Jerry', type: 'Mouse', age: 85},
+{name: 'Boris', type: 'Cat', age: '3', breed: 'Siam'}
+
+])
+
+db.pets.deleteOne({_id: ObjectId('689088f712e49f94b46b140f')})
+db.pets.insertOne({_id: {planet: 'Mars', number: 1231312312}, name: 'Alien', type: 'Monster'})
+db.pets.deleteOne({_id: {planet: 'Mars', number: 1231312312}})
+
+
+db.pets.find({breed:'Siam'})
+
+db.pets.find({breed:'Siam'}, {name:1, type:1})
+db.pets.find({type: 'Cat', age: 3})
+
+
+
+db.pets.find( { type: { $in: [ "Cat", "Mouse" ] } } )
+
+
+cohort_65> db.pets.find().skip(1).limit(2)
+cohort_65> db.pets.find().limit(2)
+
+db.pets.find().sort({age:1})
