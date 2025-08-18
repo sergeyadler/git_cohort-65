@@ -1,0 +1,82 @@
+mysql> SELECT name, quantity FROM products WHERE productCode = 'PEC';
++-----------+----------+
+| name      | quantity |
++-----------+----------+
+| Pencil 2B |    10000 |
+| Pencil 2H |     8000 |
++-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT name FROM products WHERE quantity >= 9000;
++-----------+
+| name      |
++-----------+
+| Pencil 2B |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT name, productCode, price FROM products WHERE price < 2;
++-----------+-------------+-------+
+| name      | productCode | price |
++-----------+-------------+-------+
+| Pen Red   | PEN         |  1.35 |
+| Pen Blue  | PEN         |  1.38 |
+| Pen Black | PEN         |  1.38 |
+| Pencil 2B | PEC         |  0.53 |
+| Pencil 2H | PEC         |  0.54 |
++-----------+-------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT name, quantity, price FROM products WHERE productCode = 'PEN'
+    -> ;
++-----------+----------+-------+
+| name      | quantity | price |
++-----------+----------+-------+
+| Pen Red   |     5000 |  1.35 |
+| Pen Blue  |     8000 |  1.38 |
+| Pen Black |     2000 |  1.38 |
++-----------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT productID FROM products WHERE name LIKE '%Blue%';
++-----------+
+| productID |
++-----------+
+|      1002 |
+|      1007 |
++-----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT name FROM products WHERE name LIKE '%2%' AND quantity >9000;
++-----------+
+| name      |
++-----------+
+| Pencil 2B |
++-----------+
+1 row in set (0.00 sec)
+
+
+
+mysql> SELECT name, price FROM products WHERE quantity <=4000 OR quantity > 9000;
++-------------+-------+
+| name        | price |
++-------------+-------+
+| Pen Black   |  1.38 |
+| Pencil 2B   |  0.53 |
+| Marker Red  |  2.74 |
+| Marker Blue |  2.74 |
++-------------+-------+
+4 rows in set (0.00 sec)
+
+mysql>  SELECT * FROM products WHERE price = 0.53 OR price = 0.54 OR price = 1.38;
++-----------+-------------+-----------+----------+-------+
+| productID | productCode | name      | quantity | price |
++-----------+-------------+-----------+----------+-------+
+|      1002 | PEN         | Pen Blue  |     8000 |  1.38 |
+|      1003 | PEN         | Pen Black |     2000 |  1.38 |
+|      1004 | PEC         | Pencil 2B |    10000 |  0.53 |
+|      1005 | PEC         | Pencil 2H |     8000 |  0.54 |
++-----------+-------------+-----------+----------+-------+
+4 rows in set (0.01 sec)
+
+mysql>

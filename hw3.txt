@@ -1,0 +1,67 @@
+SELECT p.*, s.name as Supplier
+  FROM products p
+  JOIN products_suppliers ps ON p.productID = ps.productID
+  JOIN suppliers s ON ps.supplierID = s.supplierID
+  WHERE s.name = 'ABC Traders';
++-----------+-------------+-----------+----------+-------+-------------+
+| productID | productCode | name      | quantity | price | Supplier    |
++-----------+-------------+-----------+----------+-------+-------------+
+|      1001 | PEN         | Pen Red   |     5000 |  1.23 | ABC Traders |
+|      1002 | PEN         | Pen Blue  |     8000 |  1.25 | ABC Traders |
+|      1003 | PEN         | Pen Black |     2000 |  1.25 | ABC Traders |
++-----------+-------------+-----------+----------+-------+-------------+
+
+
+
+
+SELECT s.name AS supplier_name, SUM(p.price * p.quantity) AS total_value
+    -> FROM suppliers s
+    -> JOIN products_suppliers ps ON s.supplierID = ps.supplierID
+    -> JOIN products p ON ps.productID = p.productID
+    -> WHERE s.name IN ('XYZ Company', 'QQ Corp')
+    -> GROUP BY s.name;
++---------------+-------------+
+| supplier_name | total_value |
++---------------+-------------+
+| XYZ Company   |     4800.00 |
+| QQ Corp       |     6150.00 |
++---------------+-------------+
+
+
+
+SELECT s.name AS supplier_name, AVG(p.price) AS avg_price
+    -> FROM suppliers s
+    -> JOIN products_suppliers ps ON s.supplierID = ps.supplierID
+    -> JOIN products p ON ps.productID = p.productID
+    -> GROUP BY s.name;
++---------------+-----------+
+| supplier_name | avg_price |
++---------------+-----------+
+| ABC Traders   |  1.243333 |
+| XYZ Company   |  0.480000 |
+| QQ Corp       |  1.230000 |
++---------------+-----------+
+
+SELECT s.name AS supplier_name, s.phone, p.price 
+	FROM products p JOIN products_suppliers ps ON p.productID = ps.productID 
+	JOIN suppliers s ON ps.supplierID = s.supplierID 
+	WHERE p.productCode = 'MRK' ORDER BY p.price ASC;
+
+
+Empty Set becaute no suppliers for marker
+
+SELECT 
+	s.name AS Supplier_Name,
+	s.phone AS Supplier_Phone,
+	COUNT(DISTINCT p.productCode) AS Number_Of_Product_Codes 
+	FROM suppliers s JOIN products_suppliers ps ON s.supplierID = ps.supplierID 
+	JOIN products p ON ps.productID = p.productID 
+	GROUP BY s.supplierID 
+	ORDER BY Number_Of_Product_Codes DESC;
++---------------+----------------+-------------------------+
+| Supplier_Name | Supplier_Phone | Number_Of_Product_Codes |
++---------------+----------------+-------------------------+
+| ABC Traders   | 88881111       |                       1 |
+| XYZ Company   | 88882222       |                       1 |
+| QQ Corp       | 88883333       |                       1 |
++---------------+----------------+-------------------------+

@@ -1,0 +1,52 @@
+docker -v        -> docker version
+docker --help    -> Docker dokumentation
+docker images    -> show images 
+docker ps        -> show list containers 
+docker ps --help -> options of PS
+
+
+docker pull ubuntu:24.04    -> Ubuntu dist
+
+docker run --help 
+docker run 65ae7a6f3544
+
+docker run -it --name bubuntu -d ubuntu:24.04
+
+
+docker run --name mysqldb -e MYSQL_ROOT_PASSWORD=1234 -d mysql:8.4
+
+
+
+
+
+docker run --name sqldb -v sqldb_volume:/var/lib/mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:8.4
+
+docker volume create mongodb_volume
+
+docker run --name mongodb -v mongodb_volume:/data/db -e MONGO_INITDB_ROOT_USERNAME=serg -e MONGO_INITDB_ROOT_PASSWORD=1234 -p 27017:27017 -d mongo:8.0.5 
+
+
+
+docker exec -it sqldb mysql -u root -p 
+
+
+docker exec -it mongodb mongosh -u serg -p 
+
+docker cp "E:\AIT_TR\Linux_GIT_Docker\grades.json" mongodb:/grades.json
+
+docker cp "E:\AIT_TR\Linux_GIT_Docker\students.json" mongodb:/students.json
+
+
+docker exec mongodb mongoimport --authentificationDatabase=admin -u=serg -p=1234 -d cohort_65 -c students --file ./students.json
+
+docker exec mongodb mongoimport --authenticationDatabase=admin -u=serg -p=1234 -d cohort_65 -c students --file ./students.json
+
+
+db.students.find({scores[0].type:'exam',scores[0].score:{$gte :90}}) //wrong
+db.students.find({'scores[0].type':'exam','scores[0].score':{$gte :90}}) //also wrong
+
+db.students.find({'scores.0.type':'exam','scores.0.score':{$gte :90}})  // right way
+
+db.students.find({scores: {$elemMatch: {type:'exam', score:{$gt:90}}}})
+
+db.students.find({scores: {$elemMatch: {type:'exam', score:{$gt:90}}}})
