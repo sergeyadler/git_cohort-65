@@ -1,0 +1,22 @@
+pwd
+ls 
+ls -la
+ls home/
+
+ls tmp/
+cd usr/
+
+cd ../../
+cd ..
+cd . 
+cd / 
+echo "Hello World" > hello.txt
+
+cat hello.txt displaz and concatinate
+rm hello.txt
+cp work.txt w1.txt
+mv w1.txt ../..
+mkdir test
+touch - empty file
+
+printf "First\nSecond\nHello\n" >> test/work2.txt
